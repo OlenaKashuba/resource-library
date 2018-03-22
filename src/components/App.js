@@ -1,14 +1,15 @@
 import React from 'react';
 import '../styles/components/App.scss';
+import FormContainer from '../containers/FormContainer';
+import ResourcesContainer from '../containers/ResourcesContainer';
 
-class App extends React.Component {
-  render(){
+const App = () => {
     return (
-      <div className="row app">
-        App will go here
+      <div>
+        <FormContainer />
+        <ResourcesContainer />
       </div>
     );
-  }
-}
+};
 
 export default App;
