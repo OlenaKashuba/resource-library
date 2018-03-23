@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "dev": "webpack --mode development",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "start": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +18,10 @@
     ]
   },
   "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "node": "^9.9.0",
+    "pg-promise": "^8.2.2",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -38,6 +43,7 @@
     "fetch-mock": "5.13.1",
     "jest": "^22.4.2",
     "node-sass": "^4.7.2",
+    "nodemon": "^1.17.2",
     "react-test-renderer": "^16.2.0",
     "redux-devtools": "^3.4.1",
     "sass-loader": "^6.0.7",
