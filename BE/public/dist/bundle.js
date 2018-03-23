@@ -21577,6 +21577,31 @@ var updateValue = exports.updateValue = function updateValue(inputValue, name) {
 	};
 };
 
+function receiveResources(resources) {
+	return {
+		type: 'RECEIVE_RESOURCES',
+		resources: resources
+	};
+};
+
+function fetchResources() {
+	return function (dispatch) {
+		return fetch('/api/resources').then(function (response) {
+			return response.json();
+		}, function (error) {
+			return console.log(error);
+		}).then(function (resources) {
+			return dispatch(receiveResources(resources));
+		});
+	};
+};
+
+var getRequest = exports.getRequest = function getRequest() {
+	return function (dispatch) {
+		return dispatch(fetchResources());
+	};
+};
+
 /***/ }),
 
 /***/ "./src/components/App.js":
@@ -21781,6 +21806,8 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
@@ -21795,23 +21822,53 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Resources = function Resources(_ref) {
-	var resources = _ref.resources;
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	return _react2.default.createElement(
-		'section',
-		{ className: 'resources' },
-		resources.map(function (resourcesItem, i) {
-			return _react2.default.createElement(_ResourcesItem2.default, {
-				resourcesItem: resourcesItem,
-				key: i
-			});
-		})
-	);
-};
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Resources = function (_React$Component) {
+	_inherits(Resources, _React$Component);
+
+	function Resources(_ref) {
+		var resources = _ref.resources,
+		    getResources = _ref.getResources;
+
+		_classCallCheck(this, Resources);
+
+		return _possibleConstructorReturn(this, (Resources.__proto__ || Object.getPrototypeOf(Resources)).call(this, { resources: resources, getResources: getResources }));
+	}
+
+	_createClass(Resources, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			this.props.getResources();
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			return _react2.default.createElement(
+				'section',
+				{ className: 'resources' },
+				this.props.resources.map(function (resourcesItem, i) {
+					return _react2.default.createElement(_ResourcesItem2.default, {
+						resourcesItem: resourcesItem,
+						key: i
+					});
+				})
+			);
+		}
+	}]);
+
+	return Resources;
+}(_react2.default.Component);
+
+;
 
 Resources.propTypes = {
-	resources: _propTypes2.default.array
+	resources: _propTypes2.default.array,
+	getResources: _propTypes2.default.func
 };
 
 exports.default = Resources;
@@ -21946,6 +22003,8 @@ var _Resources = __webpack_require__(/*! ../components/Resources */ "./src/compo
 
 var _Resources2 = _interopRequireDefault(_Resources);
 
+var _actions = __webpack_require__(/*! ../actions */ "./src/actions/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var getResources = function getResources(state) {
@@ -21956,9 +22015,15 @@ var mapStateToProps = function mapStateToProps(state) {
 	return { resources: getResources(state) };
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps
-// mapDispatchToProps
-)(_Resources2.default);
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	return {
+		getResources: function getResources() {
+			return dispatch((0, _actions.getRequest)());
+		}
+	};
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_Resources2.default);
 
 /***/ }),
 
@@ -22078,10 +22143,14 @@ var inputValue = function inputValue() {
 		urlError: false,
 		titleError: false,
 		descriptionError: false,
-		resources: [{ url: '#', title: 'title1', description: 'more' }] };
+		resources: [] };
 	var action = arguments[1];
 
 	switch (action.type) {
+		case 'RECEIVE_RESOURCES':
+			return Object.assign({}, state, {
+				resources: action.resources
+			});
 		case 'UPDATE_INPUT_VALUE':
 			return Object.assign({}, state, (_Object$assign = {}, _defineProperty(_Object$assign, action.name, action.inputValue), _defineProperty(_Object$assign, 'name', action.name), _Object$assign));
 		case 'ADD_NEW_RESOURCE':

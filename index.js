@@ -1,17 +1,14 @@
 const SERVER_PORT = process.env.PORT || 7000;
+
 const express = require('express');
 const bodyParser = require('body-parser');
-const pgp = require('pg-promise');
+const router = require('./BE/routers/router');
 
 const app = express();
 app.use(bodyParser.json());
 app.use(express.static('./BE/public'));
+app.use('/api', router);
 
-const db = pgp({
-	host: 'localhost',
-	port: 5432,
-	database: 'resources-library'
-});
 
 app.get('/', (req,res) => {
 	res.status.sendFile('index.html')

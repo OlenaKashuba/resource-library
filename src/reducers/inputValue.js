@@ -22,8 +22,12 @@ const inputValue = (state = {
 	urlError: false,
 	titleError: false,
 	descriptionError: false,
-	resources: [{url: '#', title: 'title1', description: 'more'}]}, action) => {
+	resources: []}, action) => {
 	switch (action.type) {
+		case 'RECEIVE_RESOURCES':
+			return Object.assign({}, state, {
+				resources: action.resources
+			});
 		case 'UPDATE_INPUT_VALUE':
 			return Object.assign({}, state, {
 				[action.name]: action.inputValue,

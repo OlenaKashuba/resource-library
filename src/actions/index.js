@@ -9,3 +9,26 @@ export const updateValue = (inputValue, name) => {
 		name: name
 	};
 };
+
+function receiveResources(resources) {
+	return {
+		type: 'RECEIVE_RESOURCES',
+		resources: resources
+	};
+};
+
+function fetchResources() {
+	return function(dispatch) {
+	 	return fetch('/api/resources')
+			.then(response => response.json(), error => console.log(error))
+			.then(resources => dispatch(receiveResources(resources)));
+	};
+};
+
+export const getRequest = () => {
+	return(dispatch) => {
+		return dispatch(fetchResources());
+	};
+};
+
+
