@@ -12,7 +12,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-	updateValue: inputValue => dispatch(updateValue(inputValue)),
+	updateValue: (inputValue, name) => dispatch(updateValue(inputValue, name)),
 	addNewResource: inputValue => dispatch(addNewResource(inputValue))
 });
 

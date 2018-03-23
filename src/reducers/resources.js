@@ -1,5 +1,5 @@
 const resources = (state = [
-'title1'], action) => {
+{url: '#', title: 'title1', description: 'more'}], action) => {
 	switch(action.type) {
 		case 'ADD_NEW_RESOURCE':
 			return state.concat(action.inputValue);

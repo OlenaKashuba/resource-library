@@ -12,9 +12,13 @@ const Form = ({updateValue, inputValue, addNewResource}) => {
 		>
 			<FormInput name='url'
 					updateValue={updateValue}
-					inputValue={inputValue}/>
-{/*			<FormInput name='title'/>
-			<FormInput name='description'/>*/}
+					inputValue={inputValue.url}/>
+			<FormInput name='title'
+					updateValue={updateValue}
+					inputValue={inputValue.title}/>
+			<FormInput name='description'
+					updateValue={updateValue}
+					inputValue={inputValue.description}/>
 			<button className='btn-add'> Add </button>
 		</form>
 	);
@@ -22,7 +26,7 @@ const Form = ({updateValue, inputValue, addNewResource}) => {
 
 Form.propTypes = {
 	updateValue: PropTypes.func,
-	inputValue: PropTypes.string,
+	inputValue: PropTypes.object,
 	addNewResource: PropTypes.func
 };
 

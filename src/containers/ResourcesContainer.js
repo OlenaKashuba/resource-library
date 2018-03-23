@@ -1,6 +1,7 @@
 import {connect} from 'react-redux';
 import Resources from '../components/Resources';
 
+
 const getResources = state => {
 	return state.resources;
 };

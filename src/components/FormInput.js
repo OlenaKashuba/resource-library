@@ -8,7 +8,8 @@ const FormInput = ({name, updateValue, inputValue}) => {
 			name={name}
 			placeholder={name}
 			className = {'input-'+ name}
-			onChange={event => updateValue(event.target.value)}
+			onChange={(event) => {event.preventDefault();
+				return updateValue(event.target.value, event.target.name);}}
 			value={inputValue}
 		/> 
 	);
