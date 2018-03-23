@@ -26,7 +26,7 @@ FormInput.propTypes = {
 	name: PropTypes.string,
 	updateValue: PropTypes.func,
 	inputValue: PropTypes.string,
-	error: PropTypes.boolean
+	error: PropTypes.bool
 };
 
 export default FormInput;
