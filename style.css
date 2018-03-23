@@ -19,3 +19,12 @@
   display: inline-block;
   width: 300px;
 }
+
+.validation-error {
+  display: block;
+  color: red;
+}
+
+.hidden {
+  display: none;
+}

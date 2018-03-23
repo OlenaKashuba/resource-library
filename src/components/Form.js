@@ -12,13 +12,16 @@ const Form = ({updateValue, inputValue, addNewResource}) => {
 		>
 			<FormInput name='url'
 					updateValue={updateValue}
-					inputValue={inputValue.url}/>
+					inputValue={inputValue.url}
+					error={inputValue.urlError}/>
 			<FormInput name='title'
 					updateValue={updateValue}
-					inputValue={inputValue.title}/>
+					inputValue={inputValue.title}
+					error={inputValue.titleError}/>
 			<FormInput name='description'
 					updateValue={updateValue}
-					inputValue={inputValue.description}/>
+					inputValue={inputValue.description}
+					error={inputValue.descriptionError}/>
 			<button className='btn-add'> Add </button>
 		</form>
 	);

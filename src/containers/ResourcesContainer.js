@@ -3,7 +3,7 @@ import Resources from '../components/Resources';
 
 
 const getResources = state => {
-	return state.resources;
+	return state.inputValue.resources;
 };
 
 const mapStateToProps = state => {
